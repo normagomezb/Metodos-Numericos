@@ -1,39 +1,31 @@
-import math
 import numpy as np
 
-
-def Funcion(x):
-    fun = math.cos(x) - x
-    return(fun)
-valor_pi = np.pi
-
-a = 0.5
-b = valor_pi/2
-
-tolerancia = 0.001
-No_iteraciones = 20
-
-i = 1
-
-Fa = Funcion (a)
-
-while i <= No_iteraciones:
-    p = a + (b-a)/2
-    Fp = Funcion (p)
+def Bisec(funcion, a, b, No_iteraciones = 100, error_r = 0.001):
+    #Valores
+    Error = 101
+    i = 1
+    Fa = funcion(a)
+    Fb = funcion(b)
+    if Fa * Fb < 0:
+        #Calcular soluc
+        while i <= No_iteraciones and Error >= error_r:
+            p = (a + b)/2
+            Fp = funcion (p)
+            Error = abs(p - a)/abs(p) * 100
+            if Fp == 0 or ((b-a)/2) < error_r:
+                print('La raiz solucion es:', p)
+                break
+            if Fa*Fp > 0:
+                a = p
+                Fa = Fp
+            else:
+                b = p
+                Fb = Fp
+            i += 1
+        if i > No_iteraciones:
+            print('Procedimiento completado sin exito')
     
-    if Fp == 0 or ((b-a)/2) < tolerancia:
-        print('La raiz solucion es {0}'.format(p))
-        break
-    
-    if Fa*Fp > 0:
-        a = p
-        Fa = Fp
-    
-    else:
-        b = p
-    i = i + 1
-    
-    if i > No_iteraciones:
-        print('Procedimiento completado sin exito')
+#Bisec(lambda x: np.sin(x)-x/2, 1, 3, 20, 0.001)
 
+Bisec(lambda x: np.cos(x)-x, 0.5, np.pi/2, 20, 0.001)
 
