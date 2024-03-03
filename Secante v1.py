@@ -1,34 +1,22 @@
-import math
 import numpy as np
 
-valor_pi = np.pi
-tolerancia = 0.001
-No_iteraciones = 20
-p0 = 0.5
-p1 = valor_pi/4
-
-def Funcion(x):
-    fun = math.cos(x) - x
-    return(fun)
-    
-i = 2
-
-q0 = Funcion(p0)
-q1 = Funcion(p1)
-
-while i <= No_iteraciones:
-    p = p1 - q1*(p1 - p0) /(q1 - q0)
-    
-    if abs(p - p1) < tolerancia:
-        print('La solucion para p es: {0}'. format(p))
-        break
-    
-    i = i + 1
-    
-    p0 = p1
-    q0 = q1
-    p1 = p1
-    q1 = Funcion(p)
-    
-    if i > No_iteraciones:
-        print('Procedimiento completado sin exito')
+def SecV1(funcion, p0, p1, No_iteraciones = 100, error_r = 0.001):
+    Error = 101
+    i = 2
+    q0 = funcion (p0)
+    q1 = funcion (p1)
+    while i <= No_iteraciones and Error >= error_r:
+        p = p1 - q1*(p1 - p0) /(q1 - q0)
+        Error = abs(p - p1)/abs(p)*100
+        if Error < error_r:
+            print('La raiz solucion es: ', p)
+            break
+        i += 1
+        p0 = p1
+        q0 = q1
+        p1 = p
+        q1 = funcion(p)
+        if i > No_iteraciones:
+            print('Procedimiento completado sin exito')
+   
+SecV1(lambda x: np.cos(x) - x, 0.5, np.pi/2, 100, 0.001)
