@@ -14,4 +14,5 @@ def NewtR(funcion, derivada, p0, No_iteraciones = 100, erro_r = 0.001):
         if i > No_iteraciones:
             print('Procedimiento completado sin exito')
          
-NewtR(lambda x: np.cos(x)-x, lambda x: -np.sin(x)-1, 10, 1000, 0.001)
+#NewtR(lambda x: np.cos(x)-x, lambda x: -np.sin(x)-1, 10, 1000, 0.001)
+
