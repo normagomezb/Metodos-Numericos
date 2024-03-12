@@ -187,8 +187,6 @@ while SiMetodo != NA:
         break
     
 
-#Acomoda en __int__
-#Probar que funcione en paquete
 
 
 
